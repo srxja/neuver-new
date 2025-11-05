@@ -1,0 +1,211 @@
+/* Products.module.css */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8; /* Light background for the overall page */
+  font-family: 'Arial', sans-serif; /* Consistent font */
+  color: #333;
+}
+
+.header {
+  width: 100%;
+  padding: 20px 5%;
+  /* This background image will mimic the original design with the people */
+  background-image: url('/images/product-listing-header-background.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 120px; /* Extra space at bottom to allow search/filter bar to 'float' */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+}
+
+/* Optional: Overlay to darken header background image slightly for better text contrast */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1); /* Slight dark overlay */
+  z-index: 0;
+}
+
+.logo {
+  font-family: 'Georgia', serif; /* Or a similar elegant font from your landing page */
+  font-size: 2.5rem;
+  color: #fff; /* White logo for contrast against the background */
+  margin-bottom: 40px; /* Space above search bar container */
+  z-index: 1; /* Ensure logo is above any overlay */
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.searchFilterContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Space between search bar and filters button */
+  position: absolute; /* Position relative to header */
+  bottom: -40px; /* Adjust to move it partly out of the header and overlap main content */
+  z-index: 2; /* Ensure it's above everything, including the main content */
+  width: 90%; /* Take up most of the width */
+  max-width: 900px; /* Max width for larger screens */
+}
+
+.searchBar {
+  flex-grow: 1; /* Allows search bar to take up available space */
+  position: relative;
+  background-color: #fff;
+  border-radius: 50px; /* Highly rounded corners */
+  padding: 10px 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.searchBar input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  padding: 5px 0;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.searchBar input::placeholder {
+  color: #888;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.filtersButton {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  border-radius: 50px; /* Highly rounded corners */
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.filtersButton:hover {
+  background-color: #eee;
+}
+
+.mainContent {
+  padding: 80px 5% 40px; /* Top padding to account for the search bar overlap */
+  flex-grow: 1; /* Allows main content to take remaining space */
+  display: flex;
+  justify-content: center;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid with smaller min-width for aesthetic product cards */
+  gap: 25px; /* Space between product cards */
+  width: 100%;
+  max-width: 1200px; /* Max width for the grid */
+}
+
+.productCard {
+  background-color: rgba(255, 255, 255, 0.85); /* Slightly transparent white, like the design */
+  border-radius: 12px; /* Rounded corners */
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px; /* A minimum height for the product card */
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #555; /* A subtle grey for placeholder text */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid rgba(220, 220, 220, 0.7); /* Light border for definition */
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.productPlaceholderText {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 2rem;
+  }
+
+  .searchFilterContainer {
+    flex-direction: column;
+    gap: 15px;
+    bottom: -60px; /* Adjust for stacked layout */
+  }
+
+  .searchBar {
+    width: 100%; /* Full width for stacked search bar */
+    padding: 8px 20px;
+  }
+
+  .searchBar input {
+    font-size: 1rem;
+  }
+
+  .filtersButton {
+    width: 100%; /* Full width for stacked button */
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+
+  .mainContent {
+    padding-top: 120px; /* More top padding for stacked search/filter */
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  .productCard {
+    min-height: 150px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.8rem;
+  }
+
+  .productsGrid {
+    grid-template-columns: 1fr; /* Single column on very small screens */
+    max-width: 300px; /* Constrain width for single column */
+  }
+
+  .mainContent {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .productCard {
+    min-height: 120px;
+    font-size: 1rem;
+  }
+}

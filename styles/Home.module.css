@@ -1,0 +1,313 @@
+/* Home.module.css */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Arial', sans-serif; /* A clean, modern sans-serif font */
+  color: #333;
+}
+
+/* Hero Section */
+.heroSection {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  background-image: url('/images/landing-hero-background.jpg'); /* Your main hero image */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  /* Dark overlay for text readability */
+  background-color: rgba(0, 0, 0, 0.2); /* Fallback color */
+  background-blend-mode: multiply;
+}
+
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.logo {
+  font-family: 'Georgia', serif; /* Elegant serif font for the logo */
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0;
+}
+
+.searchBarPlaceholder {
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+  border-radius: 50px;
+  padding: 10px 30px;
+  color: #333;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* Hidden on landing page per design, only appears on product page */
+  pointer-events: none; /* Make it unclickable */
+}
+
+.heroContent {
+  padding: 20px;
+  position: relative;
+  z-index: 1; /* Ensure text is above background and its overlay */
+}
+
+.heroTitle {
+  font-family: 'Playfair Display', serif; /* Or another elegant serif font */
+  font-size: 5rem;
+  line-height: 1.1;
+  margin: 0 0 20px;
+  font-weight: 700;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  margin-bottom: 40px;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+.shopNowButton {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
+}
+
+.shopNowButton:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+/* Product Highlight Sections */
+.productHighlightSection {
+  display: flex;
+  align-items: stretch; /* Make cards stretch to same height */
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 5%;
+  gap: 30px; /* Space between the two columns */
+}
+
+.productHighlightCard {
+  flex: 1; /* Each card takes equal space */
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.productHighlightCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.productHighlightImageWrapper {
+  width: 100%;
+  padding-bottom: 75%; /* Aspect ratio 4:3 */
+  position: relative;
+  background-color: #f0f0f0; /* Placeholder background */
+}
+
+.productHighlightImage {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.productHighlightInfo {
+  padding: 25px;
+  text-align: left;
+  flex-grow: 1; /* Allows content to push to bottom if other card is taller */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.productHighlightTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: #222;
+  letter-spacing: 0.5px;
+}
+
+.productHighlightDescription {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.productHighlightEmptyCard {
+  flex: 1;
+  background-color: rgba(220, 220, 220, 0.4); /* Subtle transparent background */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* Mimic the background fade-out from the original design image */
+  /* This part is tricky to replicate exactly with simple CSS, a translucent background is a good compromise */
+}
+
+
+/* Free Shipping Banner */
+.freeShippingBanner {
+  background-image: url('/images/bottom-banner-background.jpg'); /* Your bottom banner image */
+  background-size: cover;
+  background-position: center;
+  min-height: 400px; /* Decent height for the banner */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  margin-top: 60px;
+  position: relative;
+  /* Dark overlay */
+  background-color: rgba(0, 0, 0, 0.3); /* Fallback color */
+  background-blend-mode: multiply;
+}
+
+.bannerTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  font-weight: 700;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.freeShippingBanner .shopNowButton {
+  font-size: 1.1rem;
+  padding: 12px 35px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  padding: 30px 5%;
+  background-color: #222;
+  color: #aaa;
+  text-align: center;
+  margin-top: auto; /* Push footer to the bottom */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .heroTitle {
+    font-size: 4rem;
+  }
+  .heroSubtitle {
+    font-size: 1.3rem;
+  }
+  .productHighlightTitle {
+    font-size: 1.5rem;
+  }
+  .productHighlightDescription {
+    font-size: 1rem;
+  }
+  .bannerTitle {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 2rem;
+  }
+  .heroTitle {
+    font-size: 3rem;
+  }
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+  .shopNowButton {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+  }
+  .productHighlightSection {
+    flex-direction: column; /* Stack cards vertically */
+    gap: 20px;
+  }
+  .productHighlightImageWrapper {
+    padding-bottom: 65%; /* Adjust aspect ratio for smaller screens if needed */
+  }
+  .productHighlightInfo {
+    padding: 20px;
+  }
+  .productHighlightTitle {
+    font-size: 1.3rem;
+  }
+  .bannerTitle {
+    font-size: 2rem;
+  }
+  .freeShippingBanner .shopNowButton {
+    font-size: 1rem;
+    padding: 10px 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.8rem;
+  }
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+  .heroSubtitle {
+    font-size: 0.9rem;
+  }
+  .shopNowButton {
+    padding: 10px 25px;
+    font-size: 1rem;
+  }
+  .productHighlightSection {
+    padding: 0 3%;
+    margin: 30px auto;
+  }
+  .productHighlightTitle {
+    font-size: 1.1rem;
+  }
+  .productHighlightDescription {
+    font-size: 0.9rem;
+  }
+  .bannerTitle {
+    font-size: 1.5rem;
+  }
+  .freeShippingBanner {
+    min-height: 300px;
+  }
+}
