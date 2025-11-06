@@ -101,19 +101,22 @@
   background-color: #eee;
 }
 
+/* Main content layout with filters panel */
 .mainContent {
-  padding: 80px 5% 40px; /* Top padding to account for the search bar overlap */
-  flex-grow: 1; /* Allows main content to take remaining space */
-  display: flex;
+  display: flex; /* Make it a flex container */
   justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  gap: 30px; /* Space between filters panel and product grid */
+  padding: 80px 5% 40px;
 }
 
 .productsGrid {
+  flex-grow: 1; /* Allow product grid to take up remaining space */
+  max-width: 900px; /* Adjust max width if needed to fit filters */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid with smaller min-width for aesthetic product cards */
   gap: 25px; /* Space between product cards */
   width: 100%;
-  max-width: 1200px; /* Max width for the grid */
 }
 
 .productCard {
@@ -124,14 +127,12 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; /* Changed to column to stack details */
+  align-items: flex-start; /* Align text to the left */
+  justify-content: flex-start; /* Align text to the top */
+  padding: 20px; /* Add padding to the card content */
+  text-align: left;
   min-height: 180px; /* A minimum height for the product card */
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #555; /* A subtle grey for placeholder text */
-  text-transform: uppercase;
-  letter-spacing: 1px;
   border: 1px solid rgba(220, 220, 220, 0.7); /* Light border for definition */
 }
 
@@ -141,54 +142,173 @@
 }
 
 .productPlaceholderText {
+  display: none; /* Hide if showing real data */
   margin: 0;
   padding: 20px;
   text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* New styles for filter panel */
+.filtersPanel {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  width: 280px; /* Fixed width for the filters panel */
+  flex-shrink: 0; /* Prevent it from shrinking */
+  position: sticky; /* Makes it stick when scrolling */
+  top: 30px; /* Distance from the top when sticky */
+}
+
+.filtersPanel h2 {
+  font-family: 'Georgia', serif;
+  font-size: 1.5rem;
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.filterGroup {
+  margin-bottom: 20px;
+}
+
+.filterGroup label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.filterGroup select,
+.priceInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  appearance: none; /* Remove default dropdown arrow */
+  background-color: #f9f9f9;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filterGroup select:focus,
+.priceInput:focus {
+  border-color: #a0a0a0;
+  box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.1);
+}
+
+.priceInputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.priceInputs span {
+  color: #777;
+  font-weight: bold;
+}
+
+.priceInput {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.clearFiltersButton {
+  background-color: #e0e0e0;
+  color: #555;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 20px;
+}
+
+.clearFiltersButton:hover {
+  background-color: #d0d0d0;
+  color: #333;
 }
 
 
-/* Media Queries for Responsiveness */
+/* Product Card - Stock Status */
+.productName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.productDetail {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 3px;
+  line-height: 1.4;
+}
+
+.outOfStock {
+  color: #d9534f; /* Red color for out of stock */
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-top: 10px; /* Space from other details */
+  padding: 5px 0;
+  border-top: 1px dashed #eee; /* Separator */
+  width: 100%; /* Ensure it spans the card width */
+  text-align: center;
+}
+
+.inStock {
+  color: #5cb85c; /* Green color for in stock */
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  padding: 5px 0;
+  border-top: 1px dashed #eee;
+  width: 100%;
+  text-align: center;
+}
+
+/* No products found message */
+.noProductsMessage {
+  text-align: center;
+  width: 100%;
+  padding: 40px;
+  font-size: 1.1rem;
+  color: #777;
+  grid-column: 1 / -1; /* Make it span all columns */
+}
+
+
+/* Responsive Adjustments for filters panel */
 @media (max-width: 768px) {
-  .logo {
-    font-size: 2rem;
-  }
-
-  .searchFilterContainer {
-    flex-direction: column;
-    gap: 15px;
-    bottom: -60px; /* Adjust for stacked layout */
-  }
-
-  .searchBar {
-    width: 100%; /* Full width for stacked search bar */
-    padding: 8px 20px;
-  }
-
-  .searchBar input {
-    font-size: 1rem;
-  }
-
-  .filtersButton {
-    width: 100%; /* Full width for stacked button */
-    padding: 12px 25px;
-    font-size: 1rem;
-  }
-
   .mainContent {
-    padding-top: 120px; /* More top padding for stacked search/filter */
-  }
-
-  .productsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    flex-direction: column; /* Stack filters above products */
+    align-items: center; /* Center them */
     gap: 20px;
   }
 
-  .productCard {
-    min-height: 150px;
-    font-size: 1.1rem;
+  .filtersPanel {
+    width: 90%; /* Take more width on small screens */
+    max-width: 400px; /* Limit width */
+    position: static; /* No sticky behavior on small screens */
+    top: auto;
+  }
+
+  .productsGrid {
+    margin-top: 20px; /* Add some space if filters are above */
   }
 }
-
 @media (max-width: 480px) {
   .logo {
     font-size: 1.8rem;
@@ -208,36 +328,4 @@
     min-height: 120px;
     font-size: 1rem;
   }
-}
-
-/* ... existing styles ... */
-
-.productName {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.productDetail {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 3px;
-  line-height: 1.4;
-}
-
-/* Remove or modify .productPlaceholderText as it's no longer needed for real data */
-.productPlaceholderText {
-  display: none; /* Hide if showing real data */
-}
-
-/* Ensure product cards still look good when content fills them */
-.productCard {
-  /* ... existing styles ... */
-  display: flex;
-  flex-direction: column; /* Changed to column to stack details */
-  align-items: flex-start; /* Align text to the left */
-  justify-content: flex-start; /* Align text to the top */
-  padding: 20px; /* Add padding to the card content */
-  text-align: left;
 }
