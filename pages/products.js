@@ -1,11 +1,72 @@
 import Head from 'next/head';
-import Image from 'next/image'; // We'll keep Image for the background header, but not for product cards yet
+import Image from 'next/image';
 import styles from '../styles/Products.module.css';
+import { useEffect, useState } from 'react'; // Import hooks
 
 export default function Products() {
-  // We'll create an array of empty objects to render the 'PRODUCT' cards
-  // The number here can be adjusted based on how many empty cards you want to display initially
-  const placeholderProducts = Array(12).fill({}); // Creates 12 empty product cards
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch('/api/products'); // Call our API route
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (e) {
+        setError(e);
+        console.error("Failed to fetch products:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, []); // Empty dependency array means this runs once on component mount
+
+  if (loading) {
+    return (
+      <div className={styles.container}>
+        <Head><title>Products | NEUVER</title></Head>
+        <header className={styles.header}>
+            <h1 className={styles.logo}>NEUVER</h1>
+            <div className={styles.searchFilterContainer}>
+            <div className={styles.searchBar}>
+                <input type="text" placeholder="SEARCH BAR" />
+            </div>
+            <button className={styles.filtersButton}>FILTERS</button>
+            </div>
+        </header>
+        <main className={styles.mainContent}>
+            <p>Loading products...</p>
+        </main>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <Head><title>Products | NEUVER</title></Head>
+        <header className={styles.header}>
+            <h1 className={styles.logo}>NEUVER</h1>
+            <div className={styles.searchFilterContainer}>
+            <div className={styles.searchBar}>
+                <input type="text" placeholder="SEARCH BAR" />
+            </div>
+            <button className={styles.filtersButton}>FILTERS</button>
+            </div>
+        </header>
+        <main className={styles.mainContent}>
+            <p>Error loading products: {error.message}</p>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
@@ -16,7 +77,6 @@ export default function Products() {
       </Head>
 
       <header className={styles.header}>
-        {/* The background image for the header is set via CSS */}
         <h1 className={styles.logo}>NEUVER</h1>
         <div className={styles.searchFilterContainer}>
           <div className={styles.searchBar}>
@@ -28,11 +88,20 @@ export default function Products() {
 
       <main className={styles.mainContent}>
         <div className={styles.productsGrid}>
-          {placeholderProducts.map((_, index) => (
-            <div key={index} className={styles.productCard}>
-              <p className={styles.productPlaceholderText}>PRODUCT</p>
-            </div>
-          ))}
+          {products.length > 0 ? (
+            products.map(product => (
+              <div key={product.product_id} className={styles.productCard}>
+                {/* No image for now, as per your request */}
+                <h3 className={styles.productName}>{product.product_name}</h3>
+                <p className={styles.productDetail}>Price: ₹{product.price}</p>
+                <p className={styles.productDetail}>Brand: {product.brand_name}</p>
+                <p className={styles.productDetail}>Category: {product.category_name}</p>
+                {/* Add more details as needed */}
+              </div>
+            ))
+          ) : (
+            <p>No products found.</p>
+          )}
         </div>
       </main>
     </div>
