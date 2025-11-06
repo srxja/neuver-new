@@ -209,3 +209,35 @@
     font-size: 1rem;
   }
 }
+
+/* ... existing styles ... */
+
+.productName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.productDetail {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 3px;
+  line-height: 1.4;
+}
+
+/* Remove or modify .productPlaceholderText as it's no longer needed for real data */
+.productPlaceholderText {
+  display: none; /* Hide if showing real data */
+}
+
+/* Ensure product cards still look good when content fills them */
+.productCard {
+  /* ... existing styles ... */
+  display: flex;
+  flex-direction: column; /* Changed to column to stack details */
+  align-items: flex-start; /* Align text to the left */
+  justify-content: flex-start; /* Align text to the top */
+  padding: 20px; /* Add padding to the card content */
+  text-align: left;
+}
