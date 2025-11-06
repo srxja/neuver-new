@@ -1,5 +1,5 @@
 // pages/api/products.js
-import mysql from 'mysql2/promise'; // Use the promise-based API for async/await
+import mysql from 'mysql2/promise';
 
 // Create a connection pool to efficiently manage database connections
 const pool = mysql.createPool({
@@ -18,9 +18,10 @@ export default async function handler(req, res) {
     try {
       connection = await pool.getConnection();
 
-      // Construct a SQL query to fetch product data with related details
-      // Adjust this query based on what product information you want to display
-      const [rows] = await connection.execute(`
+      // Extract all filter parameters from request query
+      const { search, gender, color, size, minPrice, maxPrice } = req.query;
+
+      let query = `
         SELECT
             P.product_id,
             P.product_name,
@@ -43,16 +44,51 @@ export default async function handler(req, res) {
             Size S ON P.size_id = S.size_id
         JOIN
             Color CO ON P.color_id = CO.color_id
-        ORDER BY
-            P.product_name ASC
-      `);
+      `;
+      const queryParams = [];
+      const conditions = [];
+
+      // Add conditions based on provided filters
+      if (search) {
+        conditions.push(`P.product_name LIKE ?`);
+        queryParams.push(`%${search}%`);
+      }
+      if (gender) {
+        conditions.push(`G.gender_type = ?`);
+        queryParams.push(gender);
+      }
+      if (color) {
+        conditions.push(`CO.color_name = ?`);
+        queryParams.push(color);
+      }
+      if (size) {
+        conditions.push(`S.size_label = ?`);
+        queryParams.push(size);
+      }
+      if (minPrice) {
+        conditions.push(`P.price >= ?`);
+        queryParams.push(parseFloat(minPrice));
+      }
+      if (maxPrice) {
+        conditions.push(`P.price <= ?`);
+        queryParams.push(parseFloat(maxPrice));
+      }
+
+      // Combine all conditions with AND
+      if (conditions.length > 0) {
+        query += ` WHERE ` + conditions.join(` AND `);
+      }
+
+      query += ` ORDER BY P.product_name ASC`;
+
+      const [rows] = await connection.execute(query, queryParams);
 
       res.status(200).json(rows);
     } catch (error) {
       console.error('Database query failed:', error);
       res.status(500).json({ message: 'Failed to fetch products', error: error.message });
     } finally {
-      if (connection) connection.release(); // Release the connection back to the pool
+      if (connection) connection.release();
     }
   } else {
     res.setHeader('Allow', ['GET']);
